@@ -26,7 +26,7 @@ The columns (in order) within the CSV and their details are as follows:
 19. postalCode - The postal code for the location of the vehicle.  
 20. lastSeenOnline - When the crawler saw this ad last online.  
 
-# Note: If you run into an error named UnicodeDecodeError, try the next two most popular encoding types (Latin-1 and Windows-1252) in the open() function. Example: autos = pandas.read_csv('autos.csv','r', encoding='Latin-1')
+Note: If you run into an error named UnicodeDecodeError, try the next two most popular encoding types (Latin-1 and Windows-1252) in the open() function. Example: autos = pandas.read_csv('autos.csv','r', encoding='Latin-1')
 
 # Opening and Exploring the Data:
 ```python
