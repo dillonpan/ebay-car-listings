@@ -41,14 +41,14 @@ Unlike reading the CSV using the function open(), pandas has already seperated t
 # Clean Columns
 ```python
 print(autos.columns)
-
+```
 Index(['dateCrawled', 'name', 'seller', 'offerType', 'price', 'abtest',
        'vehicleType', 'yearOfRegistration', 'gearbox', 'powerPS', 'model',
        'odometer', 'monthOfRegistration', 'fuelType', 'brand',
        'notRepairedDamage', 'dateCreated', 'nrOfPictures', 'postalCode',
        'lastSeen'],
       dtype='object')
-```
+      
 We'll make a few changes here:
 
 1. Change the columns from camelcase to snakecase.
