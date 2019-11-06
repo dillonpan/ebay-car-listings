@@ -67,19 +67,33 @@ We'll start by exploring the data to find obvious areas where we can clean the d
 ```python
 print(autos.describe(include='all'))
 ```
-
-Take a look at the printed table and you might notice the following issues:
-
+Take a look at the printed table and you might notice the following issues.  
 There are a number of text columns where all (or nearly all) of the values are the same:
   1. seller
   2. offer_type
-The num_photos column looks odd, we'll need to investigate this further.
 
-```python
-autos["num_photos"].value_counts()
-```
-0    50000  
-Name: num_photos, dtype: int64
+count      50000
+unique         2
+top       privat
+freq       49999
+Name: seller, dtype: object
+
+count       50000
+unique          2
+top       Angebot
+freq        49999
+Name: offer_type, dtype: object
+
+count    50000.0
+mean         0.0
+std          0.0
+min          0.0
+25%          0.0
+50%          0.0
+75%          0.0
+max          0.0
+Name: num_photos, dtype: float64
+
 
 It looks like the num_photos column has 0 for every column. We'll drop this column, plus the other two we noted as mostly one value.
 ```python
