@@ -26,14 +26,14 @@ The columns (in order) within the CSV and their details are as follows:
 19. postalCode - The postal code for the location of the vehicle.  
 20. lastSeenOnline - When the crawler saw this ad last online.  
 
-Note: If you run into an error named UnicodeDecodeError, try the next two most popular encoding types (Latin-1 and Windows-1252) in the open() function. Example: autos = pandas.read_csv('autos.csv','r', encoding='Latin-1')
+Note: If you run into an error named UnicodeDecodeError, try the next two most popular encoding types (Latin-1 and Windows-1252) in the open() function. Example: autos = pandas.read_csv('autos.csv', encoding='Latin-1')
 
 # Opening and Exploring the Data:
 ```python
 import pandas
 import numpy
 
-autos = pandas.read_csv('autos.csv', 'r', encoding='utf8')
+autos = pandas.read_csv('autos.csv', encoding='utf8')
 ```
 Note: You can use 'print(head(x))' with 'x' being an integer of how many rows from the top you want to print (Ex.'print(head(3))' to print the first 3 rows). The default optional argument of head() is 5.
 Unlike reading the CSV using the function open(), pandas has already seperated the header from the body.
