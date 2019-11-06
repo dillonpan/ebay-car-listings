@@ -42,12 +42,12 @@ Unlike reading the CSV using the function open(), pandas has already seperated t
 ```python
 print(autos.columns)
 ```
-Index(['dateCrawled', 'name', 'seller', 'offerType', 'price', 'abtest',
-       'vehicleType', 'yearOfRegistration', 'gearbox', 'powerPS', 'model',
-       'odometer', 'monthOfRegistration', 'fuelType', 'brand',
-       'notRepairedDamage', 'dateCreated', 'nrOfPictures', 'postalCode',
-       'lastSeen'],
-      dtype='object')
+Index(['dateCrawled', 'name', 'seller', 'offerType', 'price', 'abtest',  
+       'vehicleType', 'yearOfRegistration', 'gearbox', 'powerPS', 'model',  
+       'odometer', 'monthOfRegistration', 'fuelType', 'brand',  
+       'notRepairedDamage', 'dateCreated', 'nrOfPictures', 'postalCode',  
+       'lastSeen'],  
+      dtype='object')  
       
 We'll make a few changes here:
 
@@ -72,27 +72,27 @@ There are a number of text columns where all (or nearly all) of the values are t
   1. seller
   2. offer_type
 
-count      50000
-unique         2
-top       privat
-freq       49999
-Name: seller, dtype: object
+count      50000  
+unique         2  
+top       privat  
+freq       49999  
+Name: seller, dtype: object  
 
-count       50000
-unique          2
-top       Angebot
-freq        49999
-Name: offer_type, dtype: object
+count       50000  
+unique          2  
+top       Angebot  
+freq        49999  
+Name: offer_type, dtype: object  
 
-count    50000.0
-mean         0.0
-std          0.0
-min          0.0
-25%          0.0
-50%          0.0
-75%          0.0
-max          0.0
-Name: num_photos, dtype: float64
+count    50000.0  
+mean         0.0  
+std          0.0  
+min          0.0  
+25%          0.0  
+50%          0.0  
+75%          0.0  
+max          0.0  
+Name: num_photos, dtype: float64  
 
 
 It looks like the num_photos column has 0 for every column. We'll drop this column, plus the other two we noted as mostly one value.
@@ -113,12 +113,12 @@ autos["price"] = (autos["price"]
 print(autos["price"].head())
 ```
 
-0    5000
-1    8500
-2    8990
-3    4350
-4    1350
-Name: price, dtype: int64
+0    5000  
+1    8500  
+2    8990  
+3    4350  
+4    1350  
+Name: price, dtype: int64  
 
 ```python
 autos["odometer"] = (autos["odometer"]
@@ -131,31 +131,31 @@ autos.rename({"odometer": "odometer_km"}, axis=1, inplace=True)
 autos["odometer_km"].head()
 ```
 
-0    150000
-1    150000
-2     70000
-3     70000
-4    150000
-Name: odometer_km, dtype: int64
+0    150000  
+1    150000  
+2     70000  
+3     70000  
+4    150000  
+Name: odometer_km, dtype: int64  
 
 # Exploring Odometer and Price
 ```python
 print(autos["odometer_km"].value_counts())
 ```
-150000    32424
-125000     5170
-100000     2169
-90000      1757
-80000      1436
-70000      1230
-60000      1164
-50000      1027
-5000        967
-40000       819
-30000       789
-20000       784
-10000       264
-Name: odometer_km, dtype: int64
+150000    32424  
+125000     5170  
+100000     2169  
+90000      1757  
+80000      1436  
+70000      1230  
+60000      1164  
+50000      1027  
+5000        967  
+40000       819  
+30000       789  
+20000       784  
+10000       264  
+Name: odometer_km, dtype: int64  
 
 There are more high mileage cars listed, which makes sense but the odometer numbers do seem odd. All seem been rounded in some way, most likely due to the design of Ebay's website. It's unlikely all the posters for the car lisings manually rounded the odometer numbers themselves.
 
@@ -164,81 +164,81 @@ Now let's print the value counts of the prices, limiting to the top 20 as theres
 print(len(autos["price"]))
 print(autos["price"].value_counts().head(20))
 ```
-50000
+50000  
 
-0       1421
-500      781
-1500     734
-2500     643
-1000     639
-1200     639
-600      531
-800      498
-3500     498
-2000     460
-999      434
-750      433
-900      420
-650      419
-850      410
-700      395
-4500     394
-300      384
-2200     382
-950      379
-Name: price, dtype: int64
+0       1421  
+500      781  
+1500     734  
+2500     643  
+1000     639  
+1200     639  
+600      531  
+800      498  
+3500     498  
+2000     460  
+999      434  
+750      433  
+900      420  
+650      419  
+850      410  
+700      395  
+4500     394  
+300      384  
+2200     382  
+950      379  
+Name: price, dtype: int64  
 
 Looks like the majority of sellers tend to round their prices but what sticks out is the 1421 listings where the price is put at 0. Given that it is only about 2.5% of the 50,000 listings, we might want to consider removing them from the data. Before we do that, let's take a look and see if theres a large amount of listing not exactly, but close to a price of 0. We are allowed to sort a value count by the price and not the count.
 
 ```python
 autos["price"].value_counts().sort_index(ascending=True).head(20)
 ```
-0     1421
-1      156
-2        3
-3        1
-5        2
-8        1
-9        1
-10       7
-11       2
-12       3
-13       2
-14       1
-15       2
-17       3
-18       1
-20       4
-25       5
-29       1
-30       7
-35       1
+0     1421  
+1      156  
+2        3  
+3        1  
+5        2  
+8        1  
+9        1  
+10       7  
+11       2  
+12       3  
+13       2  
+14       1  
+15       2  
+17       3  
+18       1  
+20       4  
+25       5  
+29       1  
+30       7  
+35       1  
 
 While we're at it, we should check if theres listings with absurdly high prices listed:
 ```python
 print(autos["price"].value_counts().sort_index(ascending=False).head(20))
 ```
-99999999    1
-27322222    1
-12345678    3
-11111111    2
-10000000    1
-3890000     1
-1300000     1
-1234566     1
-999999      2
-999990      1
-350000      1
-345000      1
-299000      1
-295000      1
-265000      1
-259000      1
-250000      1
-220000      1
-198000      1
-197000      1
-Name: price, dtype: int64
+99999999    1  
+27322222    1  
+12345678    3  
+11111111    2  
+10000000    1  
+3890000     1  
+1300000     1  
+1234566     1  
+999999      2  
+999990      1  
+350000      1  
+345000      1  
+299000      1  
+295000      1  
+265000      1  
+259000      1  
+250000      1  
+220000      1  
+198000      1  
+197000      1  
+Name: price, dtype: int64  
 
 From the looks of it, theres a few $1 or close to $1 listings and there's definately a few listings with extravgent prices listed on them. Since this is Ebay data we're working with, it's not farfetched to have bids start at $1 so we should just remove the $0 listings. In terms of the large prices, there's a massive price jump after the $350000 listing. The listings above 350,000 don't seem very realistic so we should remove them as well.
 
