@@ -340,7 +340,7 @@ bmp_series = pandas.Series(brand_mean_prices)
 # we can turn the brand_mean_prices dictionary to a pandas dataset ,like below
 print(pandas.DataFrame(bmp_series, columns=["mean_price"]))
 ```
-             \*mean_price\*
+mean_price
 volkswagen           5332
 opel                 2944
 bmw                  8261
@@ -363,25 +363,25 @@ brand_info = pandas.DataFrame(mean_mileage,columns=['mean_mileage'])
 print(brand_info)
 ```
 
-mean_mileage  
-bmw	       132572  
-mercedes_benz	130788  
-opel	       129310  
-audi	       129157  
-volkswagen	128707  
-ford	       124266  
+mean_mileage
+bmw                  132682
+mercedes_benz        130796
+audi                 129492
+opel                 129383
+volkswagen           128896
+ford                 124349
 
 ```python
 brand_info["mean_price"] = mean_prices
 print(brand_info)
 ```
 
-mean_mileage  mean_price  
-bmw	       132572 8332  
-mercedes_benz	130788 8628  
-opel	       129310 2975  
-audi	       129157 9336  
-volkswagen	128707 5402  
-ford	       124266 3749  
+mean_mileage  mean_price
+bmw                  132682        8261
+mercedes_benz        130796        8536
+audi                 129492        9212
+opel                 129383        2944
+volkswagen           128896        5332
+ford                 124349        3728
 
 The range of car mileages does not vary as much as the prices do by brand. However, it does seem like higher priced vehicles do seem to have a slightly higher mileage.
