@@ -340,7 +340,7 @@ bmp_series = pandas.Series(brand_mean_prices)
 # we can turn the brand_mean_prices dictionary to a pandas dataset ,like below
 print(pandas.DataFrame(bmp_series, columns=["mean_price"]))
 ```
-             \*mean_price
+             \*mean_price\*
 volkswagen           5332
 opel                 2944
 bmw                  8261
