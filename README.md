@@ -188,7 +188,7 @@ print(autos["price"].value_counts().head(20))
 950      379  
 Name: price, dtype: int64  
 
-Looks like the majority of sellers tend to round their prices but what sticks out is the 1421 listings where the price is put at 0. Given that it is only about 2.5% of the 50,000 listings, we might want to consider removing them from the data. Before we do that, let's take a look and see if theres a large amount of listing not exactly, but close to a price of 0. We are allowed to sort a value count by the price and not the count.
+Looks like the majority of sellers tend to round their prices but what sticks out is the 1421 listings where the price is put at 0. Given that it is only about 2.5% of the 50,000 listings, we might want to consider removing them from the data. Let's take a look and see if theres a large amount of listing not exactly, but close to a price of 0. We are allowed to sort a value count by the price and not the count.
 
 ```python
 autos["price"].value_counts().sort_index(ascending=True).head(20)
@@ -240,9 +240,21 @@ print(autos["price"].value_counts().sort_index(ascending=False).head(20))
 197000      1  
 Name: price, dtype: int64  
 
-From the looks of it, theres a few $1 or close to $1 listings and there's definately a few listings with extravgent prices listed on them. Since this is Ebay data we're working with, it's not farfetched to have bids start at $1 so we should just remove the $0 listings. In terms of the large prices, there's a massive price jump after the $350000 listing. The listings above 350,000 don't seem very realistic so we should remove them as well.
+From the looks of it, theres a few $1 or close to $1 listings and there's definately a few listings with extravgent prices listed on them. Since this is Ebay data we're working with, it's not farfetched to have bids start at $1.. In terms of the large prices, there's a massive price jump after the $350000 listing. The listings above 350,000 don't seem very realistic and should be considered possibly removable.
 
 ```python
-autos = autos[autos["price"].between(1,351000)]
-autos["price"].describe()
+autos = autos[autos["price"].between(1,350000)]
+print(autos["price"].describe())
 ```
+count     48565.000000  
+mean       5888.935591  
+std        9059.854754  
+min           1.000000  
+25%        1200.000000  
+50%        3000.000000  
+75%        7490.000000  
+max      350000.000000  
+Name: price, dtype: float64  
+
+Now we have better information on the dataset and can start working on the removal of "bad" data. I won't go in to specifics for this project but it involves filtering and reassigning the result back to the autos variable.
+
