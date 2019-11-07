@@ -28,12 +28,14 @@ The columns (in order) within the CSV and their details are as follows:
 
 Note: If you run into an error named UnicodeDecodeError, try the next two most popular encoding types (Latin-1 and Windows-1252) in the open() function. Example: autos = pandas.read_csv('autos.csv', encoding='Latin-1')
 
+# Note: Please replace [directory] below in the open() function with the link to your folder of choice where autos.csv is located
+
 # Opening and Exploring the Data:
 ```python
 import pandas
 import numpy
 
-autos = pandas.read_csv('autos.csv', encoding='utf8')
+autos = pandas.read_csv('[directory]autos.csv', encoding='utf8')
 ```
 Note: You can use 'print(head(x))' with 'x' being an integer of how many rows from the top you want to print (Ex.'print(head(3))' to print the first 3 rows). The default optional argument of head() is 5.
 Unlike reading the CSV using the function open(), pandas has already seperated the header from the body.
