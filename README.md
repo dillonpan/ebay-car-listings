@@ -128,7 +128,7 @@ autos["odometer"] = (autos["odometer"]
                              )
 # also doing a quick change of the header to snakecase
 autos.rename({"odometer": "odometer_km"}, axis=1, inplace=True)
-autos["odometer_km"].head()
+print(autos["odometer_km"].head())
 ```
 
 0    150000  
@@ -191,7 +191,7 @@ Name: price, dtype: int64
 Looks like the majority of sellers tend to round their prices but what sticks out is the 1421 listings where the price is put at 0. Given that it is only about 2.5% of the 50,000 listings, we might want to consider removing them from the data. Let's take a look and see if theres a large amount of listing not exactly, but close to a price of 0. We are allowed to sort a value count by the price and not the count using the "ascending" optional argument.
 
 ```python
-autos["price"].value_counts().sort_index(ascending=True).head(20)
+print(autos["price"].value_counts().sort_index(ascending=True).head(20))
 ```
 0     1421  
 1      156  
