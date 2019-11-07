@@ -339,7 +339,7 @@ From the top 5 brands, it looks like audi, bmw, and mercedes are generally more 
 bmp_series = pandas.Series(brand_mean_prices)
 pandas.DataFrame(bmp_series, columns=["mean_price"])
 ```
-              mean_price  
+mean_price  
 audi	       9336  
 bmw	       8332  
 ford	       3749  
@@ -362,7 +362,7 @@ brand_info = pandas.DataFrame(mean_mileage,columns=['mean_mileage'])
 print(brand_info)
 ```
 
-              mean_mileage  
+mean_mileage  
 bmw	       132572  
 mercedes_benz	130788  
 opel	       129310  
@@ -375,7 +375,7 @@ brand_info["mean_price"] = mean_prices
 print(brand_info)
 ```
 
-              mean_mileage  mean_price  
+mean_mileage  mean_price  
 bmw	       132572	       8332  
 mercedes_benz	130788	       8628  
 opel	       129310	       2975  
