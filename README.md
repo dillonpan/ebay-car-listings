@@ -333,3 +333,54 @@ print(brand_mean_prices)
  'volkswagen': 5402}
  
 From the top 5 brands, it looks like audi, bmw, and mercedes are generally more expensive while opel and ford are the more affordable options. Volkswagen seems to be somewhere in the middle between. Keep in mind this is just a general average and does not include specifics of model, year, odometer numbers, etc.
+
+# Exploring Mileage
+```python
+bmp_series = pandas.Series(brand_mean_prices)
+pandas.DataFrame(bmp_series, columns=["mean_price"])
+```
+              mean_price  
+audi	       9336  
+bmw	       8332  
+ford	       3749  
+mercedes_benz	8628  
+opel	       2975  
+volkswagen	5402  
+
+```python
+brand_mean_mileage = {}
+
+for brand in common_brands:
+    brand_only = autos[autos["brand"] == brand]
+    mean_mileage = brand_only["odometer_km"].mean()
+    brand_mean_mileage[brand] = int(mean_mileage)
+
+mean_mileage = pandas.Series(brand_mean_mileage).sort_values(ascending=False)
+mean_prices = pandas.Series(brand_mean_prices).sort_values(ascending=False)
+
+brand_info = pandas.DataFrame(mean_mileage,columns=['mean_mileage'])
+print(brand_info)
+```
+
+              mean_mileage  
+bmw	       132572  
+mercedes_benz	130788  
+opel	       129310  
+audi	       129157  
+volkswagen	128707  
+ford	       124266  
+
+```python
+brand_info["mean_price"] = mean_prices
+print(brand_info)
+```
+
+              mean_mileage  mean_price  
+bmw	       132572	       8332  
+mercedes_benz	130788	       8628  
+opel	       129310	       2975  
+audi	       129157	       9336  
+volkswagen	128707	       5402  
+ford	       124266	       3749  
+
+The range of car mileages does not vary as much as the prices do by brand. However, it does seem like higher priced vehicles do seem to have a slightly higher mileage.
