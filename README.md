@@ -188,7 +188,7 @@ print(autos["price"].value_counts().head(20))
 950      379  
 Name: price, dtype: int64  
 
-Looks like the majority of sellers tend to round their prices but what sticks out is the 1421 listings where the price is put at 0. Given that it is only about 2.5% of the 50,000 listings, we might want to consider removing them from the data. Let's take a look and see if theres a large amount of listing not exactly, but close to a price of 0. We are allowed to sort a value count by the price and not the count.
+Looks like the majority of sellers tend to round their prices but what sticks out is the 1421 listings where the price is put at 0. Given that it is only about 2.5% of the 50,000 listings, we might want to consider removing them from the data. Let's take a look and see if theres a large amount of listing not exactly, but close to a price of 0. We are allowed to sort a value count by the price and not the count using the "ascending" optional argument.
 
 ```python
 autos["price"].value_counts().sort_index(ascending=True).head(20)
@@ -240,7 +240,9 @@ print(autos["price"].value_counts().sort_index(ascending=False).head(20))
 197000      1  
 Name: price, dtype: int64  
 
-From the looks of it, theres a few $1 or close to $1 listings and there's definately a few listings with extravgent prices listed on them. Since this is Ebay data we're working with, it's not farfetched to have bids start at $1.. In terms of the large prices, there's a massive price jump after the $350000 listing. The listings above 350,000 don't seem very realistic and should be considered possibly removable.
+From the looks of it, theres a few $1 or close to $1 listings and there's definately a few listings with extravgent prices listed on them. Since this is Ebay data we're working with, it's not farfetched to have bids start at $1.. In terms of the large prices, there's a massive price jump after the $350000 listing. The listings above 350,000 don't seem very realistic and should be considered removable.
+
+Now that we have better information on the dataset, we can start working on the removal of "bad" data. The process is that we filter the current database "autos" and then re-assignment the post filtered information back as "autos". Thus we "autos" overwrite itself in a way.
 
 ```python
 autos = autos[autos["price"].between(1,350000)]
@@ -256,5 +258,78 @@ min           1.000000
 max      350000.000000  
 Name: price, dtype: float64  
 
-Now we have better information on the dataset and can start working on the removal of "bad" data. I won't go in to specifics for this project but it involves filtering and reassigning the result back to the autos variable.
+# Exploring Price by Brand
+```python
+# the normalize optional argument alters the count to it's respective percentage of the total count
+autos["brand"].value_counts(normalize=True)
+```
+volkswagen        0.211264  
+bmw               0.110045  
+opel              0.107581  
+mercedes_benz     0.096463  
+audi              0.086566  
+ford              0.069900  
+renault           0.047150  
+peugeot           0.029841  
+fiat              0.025642  
+seat              0.018273  
+skoda             0.016409  
+nissan            0.015274  
+mazda             0.015188  
+smart             0.014160  
+citroen           0.014010  
+toyota            0.012703  
+hyundai           0.010025  
+sonstige_autos    0.009811  
+volvo             0.009147  
+mini              0.008762  
+mitsubishi        0.008226  
+honda             0.007840  
+kia               0.007069  
+alfa_romeo        0.006641  
+porsche           0.006127  
+suzuki            0.005934  
+chevrolet         0.005698  
+chrysler          0.003513  
+dacia             0.002635  
+daihatsu          0.002506  
+jeep              0.002271  
+subaru            0.002142  
+land_rover        0.002099  
+saab              0.001649  
+jaguar            0.001564  
+daewoo            0.001500  
+trabant           0.001392  
+rover             0.001328  
+lancia            0.001071  
+lada              0.000578  
+Name: brand, dtype: float64  
 
+There are lots of brands with a low percentage of listings, so let's limit our analysis to those with more than 5% of the total count:
+```python
+brand_counts = autos["brand"].value_counts(normalize=True)
+# The below is the process of filtering a dataset in the pandas package
+# Alternative way to look at it: common_brands = brand_counts[autos["brand"].value_counts(normalize=True) > .05].index
+common_brands = brand_counts[brand_counts > .05].index
+print(common_brands)
+```
+Index(['volkswagen', 'bmw', 'opel', 'mercedes_benz', 'audi', 'ford'], dtype='object')
+
+```python
+brand_mean_prices = {}
+
+for brand in common_brands:
+    brand_only = autos[autos["brand"] == brand]
+    mean_price = brand_only["price"].mean()
+    brand_mean_prices[brand] = int(mean_price)
+
+print(brand_mean_prices)
+```
+{'audi': 9336,
+ 'bmw': 8332,
+ 'ford': 3749,
+ 'mercedes_benz': 8628,
+ 'opel': 2975,
+ 'volkswagen': 5402}
+ 
+From the top 5 brands, it looks like audi, bmw, and mercedes are generally more expensive while opel and ford are the more affordable options. Volkswagen seems to be somewhere in the middle between. Keep in mind this is just a general average and does not include specifics of model, year, odometer numbers, etc.
