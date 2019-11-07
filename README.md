@@ -325,12 +325,7 @@ for brand in common_brands:
 
 print(brand_mean_prices)
 ```
-{'volkswagen': 5332,  
- 'opel': 2944,  
- 'bmw': 8261,  
- 'mercedes_benz': 8536,  
- 'audi': 9212,  
- 'ford': 3728}  
+{'volkswagen': 5332, 'opel': 2944, 'bmw': 8261, 'mercedes_benz': 8536, 'audi': 9212, 'ford': 3728}
  
 From the top 5 brands, it looks like audi, bmw, and mercedes are generally more expensive while opel and ford are the more affordable options. Volkswagen seems to be somewhere in the middle between. Keep in mind this is just a general average and does not include specifics of model, year, odometer numbers, etc.
 
