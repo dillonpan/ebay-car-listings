@@ -261,49 +261,49 @@ Name: price, dtype: float64
 # Exploring Price by Brand
 ```python
 # the normalize optional argument alters the count to it's respective percentage of the total count
-autos["brand"].value_counts(normalize=True)
+print(autos["brand"].value_counts(normalize=True))
 ```
-volkswagen        0.211264  
-bmw               0.110045  
-opel              0.107581  
-mercedes_benz     0.096463  
-audi              0.086566  
-ford              0.069900  
-renault           0.047150  
-peugeot           0.029841  
-fiat              0.025642  
-seat              0.018273  
-skoda             0.016409  
-nissan            0.015274  
-mazda             0.015188  
-smart             0.014160  
-citroen           0.014010  
-toyota            0.012703  
-hyundai           0.010025  
-sonstige_autos    0.009811  
-volvo             0.009147  
-mini              0.008762  
-mitsubishi        0.008226  
-honda             0.007840  
-kia               0.007069  
-alfa_romeo        0.006641  
-porsche           0.006127  
-suzuki            0.005934  
-chevrolet         0.005698  
-chrysler          0.003513  
-dacia             0.002635  
-daihatsu          0.002506  
-jeep              0.002271  
-subaru            0.002142  
-land_rover        0.002099  
-saab              0.001649  
-jaguar            0.001564  
-daewoo            0.001500  
-trabant           0.001392  
-rover             0.001328  
-lancia            0.001071  
-lada              0.000578  
-Name: brand, dtype: float64  
+volkswagen        0.212828
+opel              0.108658
+bmw               0.108597
+mercedes_benz     0.095789
+audi              0.085823
+ford              0.069639
+renault           0.047874
+peugeot           0.029445
+fiat              0.025986
+seat              0.018944
+skoda             0.016061
+nissan            0.015258
+mazda             0.015217
+smart             0.014290
+citroen           0.014125
+toyota            0.012581
+hyundai           0.009945
+sonstige_autos    0.009698
+volvo             0.009039
+mini              0.008607
+mitsubishi        0.008216
+honda             0.007989
+kia               0.007104
+alfa_romeo        0.006610
+porsche           0.005910
+suzuki            0.005889
+chevrolet         0.005663
+chrysler          0.003480
+dacia             0.002656
+daihatsu          0.002512
+jeep              0.002224
+subaru            0.002121
+land_rover        0.002039
+saab              0.001627
+daewoo            0.001565
+jaguar            0.001524
+trabant           0.001400
+rover             0.001338
+lancia            0.001133
+lada              0.000597
+Name: brand, dtype: float64 
 
 There are lots of brands with a low percentage of listings, so let's limit our analysis to those with more than 5% of the total count:
 ```python
@@ -313,7 +313,7 @@ brand_counts = autos["brand"].value_counts(normalize=True)
 common_brands = brand_counts[brand_counts > .05].index
 print(common_brands)
 ```
-Index(['volkswagen', 'bmw', 'opel', 'mercedes_benz', 'audi', 'ford'], dtype='object')
+Index(['volkswagen', 'opel', 'bmw', 'mercedes_benz', 'audi', 'ford'], dtype='object')
 
 ```python
 brand_mean_prices = {}
@@ -325,27 +325,28 @@ for brand in common_brands:
 
 print(brand_mean_prices)
 ```
-{'audi': 9336,
- 'bmw': 8332,
- 'ford': 3749,
- 'mercedes_benz': 8628,
- 'opel': 2975,
- 'volkswagen': 5402}
+{'volkswagen': 5332,  
+ 'opel': 2944,  
+ 'bmw': 8261,  
+ 'mercedes_benz': 8536,  
+ 'audi': 9212,  
+ 'ford': 3728}  
  
 From the top 5 brands, it looks like audi, bmw, and mercedes are generally more expensive while opel and ford are the more affordable options. Volkswagen seems to be somewhere in the middle between. Keep in mind this is just a general average and does not include specifics of model, year, odometer numbers, etc.
 
 # Exploring Mileage
 ```python
 bmp_series = pandas.Series(brand_mean_prices)
-pandas.DataFrame(bmp_series, columns=["mean_price"])
+# we can turn the brand_mean_prices dictionary to a pandas dataset ,like below
+print(pandas.DataFrame(bmp_series, columns=["mean_price"]))
 ```
-mean_price  
-audi	       9336  
-bmw	       8332  
-ford	       3749  
-mercedes_benz	8628  
-opel	       2975  
-volkswagen	5402  
+             \*mean_price
+volkswagen           5332
+opel                 2944
+bmw                  8261
+mercedes_benz        8536
+audi                 9212
+ford                 3728
 
 ```python
 brand_mean_mileage = {}
