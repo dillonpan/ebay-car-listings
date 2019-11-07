@@ -376,11 +376,11 @@ print(brand_info)
 ```
 
 mean_mileage  mean_price  
-bmw	       132572	       8332  
-mercedes_benz	130788	       8628  
-opel	       129310	       2975  
-audi	       129157	       9336  
-volkswagen	128707	       5402  
-ford	       124266	       3749  
+bmw	       132572 8332  
+mercedes_benz	130788 8628  
+opel	       129310 2975  
+audi	       129157 9336  
+volkswagen	128707 5402  
+ford	       124266 3749  
 
 The range of car mileages does not vary as much as the prices do by brand. However, it does seem like higher priced vehicles do seem to have a slightly higher mileage.
