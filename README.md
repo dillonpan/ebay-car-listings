@@ -12,12 +12,12 @@ The columns (in order) within the CSV and their details are as follows:
 5. price - The price on the ad to sell the car.  
 6. abtest - Whether the listing is included in an A/B test.  
 7. vehicleType - The vehicle Type.  
-8. yearOfRegistration - The year in which which year the car was first registered.  
+8. yearOfRegistration - The year in which year the car was first registered.  
 9. gearbox - The transmission type.  
 10. powerPS - The power of the car in PS.  
 11. model - The car model name.  
 12. kilometer - How many kilometers the car has driven.  
-13. monthOfRegistration - The month in which which year the car was first registered.  
+13. monthOfRegistration - The month in which year the car was first registered.  
 14. fuelType - What type of fuel the car uses.  
 15. brand - The brand of the car.  
 16. notRepairedDamage - If the car has a damage which is not yet repaired.  
@@ -38,7 +38,7 @@ import numpy
 autos = pandas.read_csv('[directory].autos.csv', encoding='utf8')
 ```
 Note: You can use 'print(head(x))' with 'x' being an integer of how many rows from the top you want to print (Ex.'print(head(3))' to print the first 3 rows). The default optional argument of head() is 5.
-Unlike reading the CSV using the function open(), pandas has already seperated the header from the body.
+Unlike reading the CSV using the function open(), pandas has already separated the header from the body.
 
 # Clean Columns
 ```python
@@ -53,7 +53,7 @@ Index(['dateCrawled', 'name', 'seller', 'offerType', 'price', 'abtest',
       
 We'll make a few changes here:
 
-1. Change the columns from camelcase to snakecase.
+1. Change the columns from camelCase to snake case.
 2. Change a few wordings to more accurately describe the columns.
 
 ```python
@@ -69,8 +69,8 @@ We'll start by exploring the data to find obvious areas where we can clean the d
 ```python
 print(autos.describe(include='all'))
 ```
-Take a look at the printed table and you might notice the following issues.  
-There are a number of text columns where all (or nearly all) of the values are the same:
+Look at the printed table and you might notice the following issues.  
+There are several text columns where all (or nearly all) of the values are the same:
   1. seller
   2. offer_type
 
@@ -100,7 +100,7 @@ Name: num_photos, dtype: float64
 It looks like the num_photos column has 0 for every column. We'll drop this column, plus the other two we noted as mostly one value.
 ```python
 # the "axis=1" optional argument below means that we want to drop the column.
-# The deault axis argument in .drop() is axis=0, aka dropping the row
+# The default axis argument in .drop() is axis=0, aka dropping the row
 autos = autos.drop(["num_photos", "seller", "offer_type"], axis=1)
 ```
 
@@ -128,7 +128,7 @@ autos["odometer"] = (autos["odometer"]
                              .str.replace(",","")
                              .astype(int)
                              )
-# also doing a quick change of the header to snakecase
+# also doing a quick change of the header to snake case
 autos.rename({"odometer": "odometer_km"}, axis=1, inplace=True)
 print(autos["odometer_km"].head())
 ```
@@ -159,9 +159,9 @@ print(autos["odometer_km"].value_counts())
 10000       264  
 Name: odometer_km, dtype: int64  
 
-There are more high mileage cars listed, which makes sense but the odometer numbers do seem odd. All seem been rounded in some way, most likely due to the design of Ebay's website. It's unlikely all the posters for the car lisings manually rounded the odometer numbers themselves.
+There are more high mileage cars listed, which makes sense, but the odometer numbers do seem odd. All seem been rounded in some way, most likely due to the design of eBay’s website. It's unlikely all the posters for the car listings manually rounded the odometer numbers themselves.
 
-Now let's print the value counts of the prices, limiting to the top 20 as theres many more unique values in this column
+Now let's print the value counts of the prices, limiting to the top 20 as there’s many more unique values in this column
 ```python
 print(len(autos["price"]))
 print(autos["price"].value_counts().head(20))
@@ -190,7 +190,7 @@ print(autos["price"].value_counts().head(20))
 950      379  
 Name: price, dtype: int64  
 
-Looks like the majority of sellers tend to round their prices but what sticks out is the 1421 listings where the price is put at 0. Given that it is only about 2.5% of the 50,000 listings, we might want to consider removing them from the data. Let's take a look and see if theres a large amount of listing not exactly, but close to a price of 0. We are allowed to sort a value count by the price and not the count using the "ascending" optional argument.
+Looks like most sellers tend to round their prices but what sticks out is the 1421 listings where the price is put at 0. Given that it is only about 2.5% of the 50,000 listings, we might want to consider removing them from the data. Let's look and see if there's a large amount of listing not exactly, but close to a price of 0. We can sort a value count by the price and not the count using the "ascending" optional argument.
 
 ```python
 print(autos["price"].value_counts().sort_index(ascending=True).head(20))
@@ -216,7 +216,7 @@ print(autos["price"].value_counts().sort_index(ascending=True).head(20))
 30       7  
 35       1  
 
-While we're at it, we should check if theres listings with absurdly high prices listed:
+While we're at it, we should check if there's listings with absurdly high prices listed:
 ```python
 print(autos["price"].value_counts().sort_index(ascending=False).head(20))
 ```
@@ -242,7 +242,7 @@ print(autos["price"].value_counts().sort_index(ascending=False).head(20))
 197000      1  
 Name: price, dtype: int64  
 
-From the looks of it, theres a few $1 or close to $1 listings and there's definately a few listings with extravgent prices listed on them. Since this is Ebay data we're working with, it's not farfetched to have bids start at $1.. In terms of the large prices, there's a massive price jump after the $350000 listing. The listings above 350,000 don't seem very realistic and should be considered removable.
+From the looks of it, there's a few $1 or close to $1 listings and there's definitely a few listings with extravagant prices listed on them. Since this is Ebay data we're working with, it's not farfetched to have bids start at $1.. In terms of the large prices, there's a massive price jump after the $350000 listing. The listings above 350,000 don't seem very realistic and should be considered removable.
 
 Now that we have better information on the dataset, we can start working on the removal of "bad" data. The process is that we filter the current database "autos" and then re-assignment the post filtered information back as "autos". Thus we "autos" overwrite itself in a way.
 
@@ -329,7 +329,7 @@ print(brand_mean_prices)
 ```
 {'volkswagen': 5332, 'opel': 2944, 'bmw': 8261, 'mercedes_benz': 8536, 'audi': 9212, 'ford': 3728}
  
-From the top 5 brands, it looks like audi, bmw, and mercedes are generally more expensive while opel and ford are the more affordable options. Volkswagen seems to be somewhere in the middle between. Keep in mind this is just a general average and does not include specifics of model, year, odometer numbers, etc.
+From the top 5 brands, it looks like Audi, BMW, and Mercedes are generally more expensive while Opel and Ford are the more affordable options. Volkswagen seems to be somewhere in the middle between. Keep in mind this is just a general average and does not include specifics of model, year, odometer numbers, etc.
 
 # Exploring Mileage
 ```python
